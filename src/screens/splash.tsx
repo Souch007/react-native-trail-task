@@ -4,10 +4,13 @@ import { useNavigation } from "@react-navigation/native";
 import Logo from "../assets/logo.png";
 import styles from "./styles";
 import { HOME } from "../constants/constants";
+import { useApi } from "../hooks/useAppConfig";
+import { searchStore } from "../stores/SearchStore";
 
 const SplashScreen = () => {
   const navigation = useNavigation(); 
-
+  const api = useApi();
+  searchStore.updateApi(api)
   useEffect(() => {
     const timer = setTimeout(() => {
       navigation.navigate(HOME); 

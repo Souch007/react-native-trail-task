@@ -8,13 +8,15 @@ import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import useInterestSearch from '../hooks/useInterestSearch';
 import { observer } from 'mobx-react-lite';
 import { searchStore } from '../stores/SearchStore';
+import { useApi } from '../hooks/useAppConfig';
 
 
 
 const HomeScreen = observer(() => {
     //const { query, data, loading, handleQueryChange, loadMoreData } = useInterestSearch();
+  
     const [focus, setFocus] = useState<boolean>(false);
-
+    
     const renderListItem = ({ item }: { item: any }) => (
         <View style={styles.resultItem}>
             <Image source={{ uri: item.avatar ?? '' }} style={styles.avatar} />

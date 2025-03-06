@@ -7,6 +7,7 @@ import { View } from 'react-native';
 
 
 function App(): React.JSX.Element {
+ 
   return (
     <SafeAreaProvider >
       <GestureHandlerRootView style={{ flex: 1 }}>
