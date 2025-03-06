@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     },
     autocompleteContainer: {
         position: 'absolute',
-        bottom: 10,
+        bottom: 30,
         left: 5,
         right: 5,
         backgroundColor: 'white',

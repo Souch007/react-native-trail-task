@@ -6,9 +6,13 @@ import {
 import styles from './styles';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import useInterestSearch from '../hooks/useInterestSearch';
+import { observer } from 'mobx-react-lite';
+import { searchStore } from '../stores/SearchStore';
 
-const HomeScreen = () => {
-    const { query, data, loading, handleQueryChange, loadMoreData } = useInterestSearch();
+
+
+const HomeScreen = observer(() => {
+    //const { query, data, loading, handleQueryChange, loadMoreData } = useInterestSearch();
     const [focus, setFocus] = useState<boolean>(false);
 
     const renderListItem = ({ item }: { item: any }) => (
@@ -32,13 +36,13 @@ const HomeScreen = () => {
             {focus && (
                 <View style={styles.resultsContainer}>
                     <FlatList
-                        data={data}
-                        keyExtractor={(item, index) => item.id+"" || index.toString()}
+                        data={searchStore.data}
+                        keyExtractor={(item, index) => item.id.toString() }
                         inverted
                         renderItem={({ item }) => renderListItem({ item })}
-                        onEndReached={loadMoreData}
+                        onEndReached={searchStore.loadMoreData}
                         onEndReachedThreshold={0.5}
-                        ListFooterComponent={loading ? renderSkeleton() : null}
+                        ListFooterComponent={searchStore.loading ? renderSkeleton() : null}
                         style={styles.resultsList}
                     />
                 </View>
@@ -51,14 +55,14 @@ const HomeScreen = () => {
                     style={[styles.input, { borderColor: focus ? "#00008B" : "#999" }]}
                     placeholder="Search..."
                     placeholderTextColor="grey"
-                    value={query}
+                    value={searchStore.query}
                     onFocus={() => setFocus(true)}
                     onBlur={() => setFocus(false)}
-                    onChangeText={handleQueryChange}
+                    onChangeText={searchStore.setQuery}
                 />
             </KeyboardAvoidingView>
         </View>
     );
-};
+});
 
 export default HomeScreen;
